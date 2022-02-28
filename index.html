@@ -1,0 +1,403 @@
+<html lang="en">
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Spring Festival Lucky Draw</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background-color: rgb(42, 133, 186);
+			background: url(img/bg1.jpg);
+			background-size: 100%;
+			/*防止出现向下滚动条*/
+			overflow: hidden;
+			
+		}
+
+		.aside-left {
+			position: absolute;
+			left: 0;
+			padding: 10px;
+		}
+
+		ol {
+			margin-left: 35px;
+		}
+
+		ul {
+			margin-left: 35px;
+			/* display: flex; */
+			/* height: 800px;
+			flex-direction:column;
+			flex-wrap:wrap; */
+		}
+
+		ol li {
+			padding: 10px 10px;
+			font: italic 12pt "myfont";
+			font-size: 28px;
+			font-weight: 400;
+			list-style: none;
+			font-style: normal;
+			/* -webkit-text-stroke: 1px rgb(255, 211, 205); */
+			text-shadow: 0 0 8px rgb(0, 172, 9);
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+
+		ul li {
+			padding: 10px 10px;
+			font: italic 12pt "myfont";
+			font-size: 45px;
+			font-weight: 600;
+			list-style: none;
+			font-style: normal;
+			-webkit-text-stroke: 0.8px rgb(132, 0, 255);
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+
+		h1{
+			text-align: center;
+			font-size: 50px;
+			-webkit-text-stroke: 0.8px rgb(51, 255, 0);
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+
+		h2 {
+			margin-top: 80%;
+			text-align: center;
+			font-size: 35px;
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+
+		.aside-right {
+			position: relative;
+			top: -65%;
+			float: right;
+			margin-right: 80px;
+			
+		}
+
+		.container {
+			position: relative;
+			/* text-align: center; */
+			top: 50%;
+			left: 50%;
+			margin-top: 50px;
+			width: 60vw;
+			height: 75vh;	
+			transform: translate(-50%, -50%);		
+			background: url(img/bg2.jpg);
+			background-size: 100%;
+			border-radius: 50%;
+			box-shadow:0 0 80px 20px rgb(5,43,63);
+		}
+
+		.title {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 2em;
+			font: bold 3em "宋体";
+			text-align: center;
+		}
+
+		@font-face {
+			font-family: "myfont";
+			src: url('font/FZLTXHJW.TTF');
+		}
+
+		#show-box {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 50%;
+			text-align: center;
+			font-size: 70px;
+			text-shadow: 0 0 10px rgb(100, 160, 9);
+			-webkit-text-stroke: 0.8px rgb(51, 255, 0);
+			font-weight: 600;
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+		#list {
+			display: flex;
+			width: 80vw;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		header {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			text-align: center;
+			font-size: 60px;
+			font-style: normal;
+			font-weight:600;
+			-webkit-text-stroke: 2px burlywood;
+
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+		}
+
+		.tip {
+			display: inline-block;
+			animation: sc 5s infinite linear;
+			font-size: 50px;
+			-webkit-text-stroke: 0.4px rgb(29, 128, 4);
+			background-image:-webkit-linear-gradient(bottom,red,#fd8403,yellow);
+    		-webkit-background-clip:text;
+     		-webkit-text-fill-color:transparent;
+
+		}
+
+		/*自定义动画*/
+		@-webkit-keyframes sc {
+			0% {
+				transform: scale(1.0);
+			}
+
+			50% {
+				transform: scale(1.5);
+			}
+
+			100% {
+				transform: scale(1.0);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		404考勤点名&nbsp;幸运儿就是你
+	</header>
+	<div class="aside-left">
+		<h2>操作说明</h2>
+		<ol>
+			<li>回车开始抽取</li>
+			<li>再次回车暂停</li>
+			<li>ESC键重新抽取</li>
+		</ol>
+	</div>
+	<div class="container">
+		<!-- <div class="title">
+			抽取幸运观众
+		</div> -->
+		<div id="show-box">
+			<span class="tip">Enter键开始</span>
+		</div>
+	</div>
+	<div class="aside-right">
+		<h1>幸运观众</h1>
+		<ul id="list">
+		</ul>
+	</div>
+	<!--背景音乐 -->
+	<audio src="source/bgm.mp3" autoplay id="bgm" loop="-1"></audio>
+
+	<script>
+		
+		// 抽奖姓名数据
+		var names = ["马朋轩","李灏","范怡林","庞栋","李晨龙","闰腾飞","李鑫","薛艺佳","靳亚冰","赵圆鑫","李文龙","韩凯","周晓宇","王超燃","王培贤","李伊凯","詹思雨","吴宇科","魏振华","李洋","李陆豪","陈又夫","熊巍","岳兴","刘泽宇","苗宇阳","王昊宇","王育捷","闫国浩","李栋","王龙龙","常席通","吕强","刘嘉骏","徐彦明","张苗苗","赵薇","董诗雨","吴紫薇","郭帅","冷晨铭","胡玉成","李世豪","周博","程霖","闫兴","刘博威","路峥","蔡文博","王敬业"];
+		var intavlflag; //标记
+		var isBegin = false; //是否正在滚动 默认未开始状态
+		var lucker; //记录当前幸运儿
+		var luckers = []; //存储所有幸运儿
+		
+		var demon = [];//
+		
+		
+		//全局按键事件
+		document.onkeydown = function (e) {
+			//获取事件对象中的按键码   13：enter       27：esc
+			switch (e.keyCode) {
+				case 13:
+					//抽取相关
+					extract();
+					break;
+				case 27:
+				
+					$('show-box').innerHTML = "Enter键开始"
+					demon = [];//
+				
+					//将已被抽取的名单合并到源数组中(归还名额)
+					names = names.concat(luckers);
+					console.info('还原数组:' + names);
+					luckers = []; //清空数组
+					//清除列表内幸运儿名单
+					$('list').innerHTML = '';
+					break;
+			}
+		}
+
+		//抽取准备
+		function extract() {
+			if (isBegin) {
+				
+				var rand = Math.floor(Math.random() * demon.length);
+				console.log(rand)
+				
+				console.log(demon.length)
+				//停止
+				if(demon.length > 0){
+					$('show-box').innerHTML = demon[rand];
+					lucker = $('show-box').innerHTML;
+					removeName(demon,lucker)
+				}
+				
+				
+				
+				//停止
+				clearInterval(intavlflag);
+				//将幸运儿加入数组
+				luckers.push(lucker);
+				
+				//动态创建节点
+				var li = document.createElement('li');
+				li.innerHTML = lucker;
+				//将节点加入ol元素中
+				$('list').appendChild(li);
+				//从源数组移除被抽中的幸运儿
+				removeName(names, lucker);
+				//改变音效
+				$('bgm').src = 'source/cheer.mp3';
+				//增加样式(动画)
+				$('show-box').className = 'tip';
+				//标记滚动状态为停止
+				isBegin = false;
+				var msg = new SpeechSynthesisUtterance(lucker);
+				window.speechSynthesis.speak(msg);
+			} else {
+				//开始
+				//先判断数组中人数是否已达到3人
+				// if(luckers.length < 3) {
+				//启动抽取每隔0.05秒刷新界面内容
+				intavlflag = setInterval(begin, 50);
+				$('bgm').src = 'source/bgm.mp3';
+				//去除样式（停止动画）
+				$('show-box').className = '';
+				//将标志位设置为已启动
+				isBegin = true;
+				// } 
+				// else {
+				// 	alert('人数已满!');
+				// }
+				if(names.length <=0) {
+					alert('全部人都抽过了!');
+				}
+
+			}
+		}
+
+		//从源数组中移除被抽中的幸运儿
+		function removeName(arr, name) {
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i] == name) {
+					arr.splice(i, 1);
+					console.info('移除：' + name + '--剩余：' + arr);
+					break;
+				}
+			}
+		}
+
+		//开始抽取，随机获取下标
+		function begin() {
+			var index = Math.floor(Math.random() * names.length);
+			lucker = names[index];
+			$('show-box').innerHTML = lucker;
+		}
+
+		function $(id) {
+			return document.getElementById(id);
+		}
+
+		// 雪花特效
+		function snow() {
+			// 1、定义一片雪花模板
+			var flake = document.createElement('div');
+			// 雪花字符 ❄❉❅❆✻✼❇❈❊✥✺
+			flake.innerHTML = '❅';
+			flake.style.cssText = 'position:absolute;color:#fff;';
+
+			//获取页面的高度 相当于雪花下落结束时Y轴的位置
+			var documentHieght = window.innerHeight;
+			//获取页面的宽度，利用这个数来算出，雪花开始时left的值
+			var documentWidth = window.innerWidth;
+
+			//定义生成一片雪花的毫秒数
+			var millisec = 10;
+			//2、设置第一个定时器，周期性定时器，每隔一段时间（millisec）生成一片雪花；
+			setInterval(function () { //页面加载之后，定时器就开始工作
+				//随机生成雪花下落 开始 时left的值，相当于开始时X轴的位置
+				var startLeft = Math.random() * documentWidth;
+
+				//随机生成雪花下落 结束 时left的值，相当于结束时X轴的位置
+				var endLeft = Math.random() * documentWidth;
+
+				//随机生成雪花大小
+				var flakeSize = 3 + 20 * Math.random();
+
+				//随机生成雪花下落持续时间
+				var durationTime = 4000 + 7000 * Math.random();
+
+				//随机生成雪花下落 开始 时的透明度
+				var startOpacity = 0.7 + 0.3 * Math.random();
+
+				//随机生成雪花下落 结束 时的透明度
+				var endOpacity = 0.2 + 0.2 * Math.random();
+
+				//克隆一个雪花模板
+				var cloneFlake = flake.cloneNode(true);
+
+				//第一次修改样式，定义克隆出来的雪花的样式
+				cloneFlake.style.cssText += `
+   left: ${startLeft}px;
+   opacity: ${startOpacity};
+   font-size:${flakeSize}px;
+   top:-25px;
+    transition:${durationTime}ms;`;
+
+				//拼接到页面中
+				document.body.appendChild(cloneFlake);
+
+				//设置第二个定时器，一次性定时器，
+				//当第一个定时器生成雪花，并在页面上渲染出来后，修改雪花的样式，让雪花动起来；
+				setTimeout(function () {
+					//第二次修改样式
+					cloneFlake.style.cssText += `
+    left: ${endLeft}px;
+    top:${documentHieght}px;
+    opacity:${endOpacity};`;
+
+					//4、设置第三个定时器，当雪花落下后，删除雪花。
+					setTimeout(function () {
+						cloneFlake.remove();
+					}, durationTime);
+				}, 0);
+
+			}, millisec);
+		}
+		snow();
+	</script>
+</body>
+
+</html>
